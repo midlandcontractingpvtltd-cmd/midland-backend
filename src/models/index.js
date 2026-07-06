@@ -1,4 +1,17 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: { require: true, rejectUnauthorized: false }
+  }
+});
+const pg = require('pg'); // add this at the top
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  dialectModule: pg,      // <-- add this line
+  dialectOptions: {
+    ssl: { require: true, rejectUnauthorized: false }
+  }
+});const { Sequelize, DataTypes } = require('sequelize');
 
 // Use DATABASE_URL if defined (production), else SQLite (development)
 let sequelize;
